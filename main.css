@@ -1,0 +1,42 @@
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+}
+
+.ui-tabs-panel > ul {
+	padding: 0;
+	margin: 0;
+}
+
+#stop {
+	float: right;
+}
+
+#tv > ul {
+	-webkit-column-count: 2;
+}
+
+#tv > ul ul {
+	margin-bottom: 0.25em;
+}
+
+#tv > ul li {
+	margin: 0.1em;
+}
+
+#radio > ul {
+	-webkit-column-width: 20em;
+}
+
+#radio > ul > li > a {
+	display: block;
+}
+
+#radio > ul > li > a > * {
+	vertical-align: middle;
+	margin: 0.1em 0.25em;
+}
+

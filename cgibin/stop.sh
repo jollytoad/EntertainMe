@@ -1,5 +1,5 @@
 #!/bin/sh
 echo "Content-type: text/plain"
 echo
-killall vlc
+killall vlc mplayer 2>/dev/null
 

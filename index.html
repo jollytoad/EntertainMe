@@ -3,52 +3,20 @@
 <head>
 	<title>Media Centre</title>
 	<link rel="stylesheet" href="ext/jquery-ui.css" media="screen"/>
+	<link rel="stylesheet" href="main.css" media="screen"/>
 	<script src="ext/jquery-1.4.1.min.js"></script>
 	<script src="ext/jquery.keys.js"></script>
 	<script src="ext/jquery.metadata.js"></script>
 	<script src="ext/jquery-ui.min.js"></script>
 	<script src="main.js"></script>
 	<script src="tv.js"></script>
+	<script src="radio.js"></script>
 </head>
 <body>
-	<div class="ui-widget ui-widget-content ui-corner-all" tabindex="1">
-		<button id="stop">Stop</button>
+	<div class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix" tabindex="1">
+		<label>Now playing:	<span id="nowplaying"></span></label>
+		<button type="button" id="stop">Stop</button>
 	</div>
-
-<!--	<header>-->
-<!--		<h1>Media Centre</h1>-->
-
-<!--		<!-- General info/controls -->
-<!--		<div>-->
-<!--			<label for="nowplaying">Now playing:</label>-->
-<!--			<output id="nowplaying"/>-->
-<!--		</div>-->
-
-<!--		<div>-->
-<!--			<input id="mute" type="checkbox"/>-->
-<!--			<label for="mute">Mute</label>-->
-<!--			<button id="vol-dec">Vol-</button>-->
-<!--			<input id="vol" type="range" title="Volume"/>-->
-<!--			<button id="vol-inc">Vol+</button>-->
-<!--		</div>-->
-<!--		-->
-<!--		<div>-->
-<!--			<button>Play/Pause</button>-->
-<!--		</div>-->
-<!--	</header>-->
-
-<!--	<section>-->
-<!--		<h2>Jukebox (MPD)</h2>-->
-<!--		<button>Play</button>-->
-<!--		-->
-<!--		<div>-->
-<!--			<label><input type="checkbox">Random</label>-->
-<!--		</div>-->
-<!--		-->
-<!--		<div>-->
-<!--			<label><input type="checkbox">Playlist 1</label>-->
-<!--		</div>-->
-<!--	</section>-->
 
 	<div id="tabs" tabindex="2">
 		<ul>
@@ -57,38 +25,18 @@
 			<li><a href="#radio" tabindex="-1">Live Radio</a></li>
 		</ul>
 		
-		<div id="tv" data-path="/home/mark/Videos/TV/">
-			<ul>
-			</ul>
+		<div id="tv" data-val="/home/mark/Videos/TV/" data-play="video-play.sh">
 		</div>
 
 		<div id="music">
 			Music
 		</div>
 		
-		<div id="radio">
-			List of radio stations
+		<div id="radio" data-play="radio-play.sh">
 		</div>
 	</div>
 
-	<div id="log">
-	</div>
-<!--	<section>-->
-<!--		<h2>Live Radio</h2>-->
-<!--		-->
-<!--		<div>-->
-<!--			<!-- List of radio stations -->
-<!--		</div>-->
-<!--	</section>-->
-
-<!--	<section>-->
-<!--		<h2>Films</h2>-->
-<!--		<!-- Similar to TV section -->
-<!--	</section>-->
-
-<!--	<footer>-->
-<!--		<!-- Downloads in progress/scheduled/reminders/suggestions etc -->
-<!--	</footer>-->
+	<textarea id="log" readonly></textarea>
 </body>
 </html>
 
