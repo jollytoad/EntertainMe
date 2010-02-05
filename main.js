@@ -8,7 +8,6 @@ jQuery(function($) {
 	});
 
 	$('li.play > a').live('click', function(event) {
-		event.preventDefault();
 		$(this).trigger('play');
 	});
 

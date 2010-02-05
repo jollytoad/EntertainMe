@@ -9,7 +9,7 @@
 	<script src="ext/jquery.metadata.js"></script>
 	<script src="ext/jquery-ui.min.js"></script>
 	<script src="main.js"></script>
-	<script src="tv.js"></script>
+	<script src="files.js"></script>
 	<script src="radio.js"></script>
 </head>
 <body>
@@ -20,12 +20,12 @@
 
 	<div id="tabs" tabindex="2">
 		<ul>
-			<li><a href="#tv" tabindex="-1">TV</a></li>
-			<li><a href="#music" tabindex="-1">Music</a></li>
-			<li><a href="#radio" tabindex="-1">Live Radio</a></li>
+			<li><a href="#tv" tabindex="-1">0: TV</a></li>
+			<li><a href="#music" tabindex="-1">1: Music</a></li>
+			<li><a href="#radio" tabindex="-1">2: Live Radio</a></li>
 		</ul>
 		
-		<div id="tv" data-val="/home/mark/Videos/TV/" data-play="video-play.sh">
+		<div id="tv" class="files" data-val="/home/mark/Videos/TV/" data-play="video-play.sh">
 		</div>
 
 		<div id="music">
@@ -35,8 +35,6 @@
 		<div id="radio" data-play="radio-play.sh">
 		</div>
 	</div>
-
-	<textarea id="log" readonly></textarea>
 </body>
 </html>
 
