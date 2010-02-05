@@ -108,15 +108,15 @@ jQuery(function($) {
 		.bind('keydown', function(event) {
 			var num = event.keyCode - 48;
 
-			if ( num >= 0 && num <= 9 ) {
-				$('#tabs > .ui-tabs-nav > li:eq(' + num +') > a').click();
+			if ( num >= 1 && num <= 9 ) {
+				$('#tabs > .ui-tabs-nav > li:eq(' + num-1 +') > a').click();
 			}
 		})
 		
 		.ready(function() {
 			// Prepend numbers to tab text
 			$('#tabs > ul > li > a').prepend(function(i) {
-				return i + ': ';
+				return (i+1) + ': ';
 			});
 		});
 
