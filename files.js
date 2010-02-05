@@ -1,37 +1,30 @@
-jQuery(function($) {
-	var cgi = 'cgi-bin/';
-	
-	function load() {
-		var list = this,
-			path = $(list).closest('[data-val]').attr('data-val') || "",
-			id = $(list).closest('.files').attr('id');
-		
-		$.get(cgi+'list.sh?' + path, function(data) {
-			$(list).empty();
+/*** File Browser Populator Agent - parse directory listing and generate markup ***/
+(function($) {
 
-			$.each(data.split(/\r?\n/), function(i, line) {
-				if ( line ) {
-					var li = $('<li/>', { 'data-val': path+line, 'data-title': line }).appendTo(list);
-					$('<a/>', { href: '#'+id+'|'+path+line, text: line }).appendTo(li);
-				
-					if ( /\/$/.test(line) ) {
-						li.addClass('dir').append('<ul/>');
-					} else {
-						li.addClass('file play');
-						
-					}
+	$('.file-browser .content').live('loaded', function(event, data, val) {
+		var content = this,
+			id = $(content).closest('.ui-tabs-panel').attr('id');
+
+		$.each(data.split(/\r?\n/), function(i, line) {
+			if ( line ) {
+				var isDir = /\/$/.test(line),
+					li = $('<li/>', {
+						'data-trigger': isDir ? 'load' : 'play',
+						'data-val': val+line,
+						'data-title': line,
+						'class': isDir ? 'dir load' : 'file play'
+					}).appendTo(content);
+			
+				$('<a/>', { href: '#'+id+'|'+val+line, text: line }).appendTo(li);
+
+				if ( isDir ) {
+					li.append('<ul class="content"/>');
 				}
-			});
+			}
 		});
-	}
 
-	$('.files > ul > li.dir > a').live('click', function(event) {
-		$(this).next('ul').each(load);
+		$(content).trigger('updated');
 	});
 
-	$('.files').append('<ul/>');
-
-	$('.files > ul').each(load);
-
-});
+})(jQuery);
 

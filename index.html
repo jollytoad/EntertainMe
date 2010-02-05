@@ -2,37 +2,39 @@
 <html>
 <head>
 	<title>Media Centre</title>
+	<meta id="cgibin" name="cgibin" content="cgi-bin/"/>
 	<link rel="stylesheet" href="ext/jquery-ui.css" media="screen"/>
 	<link rel="stylesheet" href="main.css" media="screen"/>
 	<script src="ext/jquery-1.4.1.min.js"></script>
-	<script src="ext/jquery.keys.js"></script>
-	<script src="ext/jquery.metadata.js"></script>
 	<script src="ext/jquery-ui.min.js"></script>
 	<script src="main.js"></script>
 	<script src="files.js"></script>
 	<script src="radio.js"></script>
 </head>
 <body>
-	<div class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix" tabindex="1">
+	<div class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
 		<label>Now playing:	<span id="nowplaying"></span></label>
 		<button type="button" id="stop">Stop</button>
 	</div>
 
-	<div id="tabs" tabindex="2">
+	<div id="tabs">
 		<ul>
-			<li><a href="#tv" tabindex="-1">0: TV</a></li>
-			<li><a href="#music" tabindex="-1">1: Music</a></li>
-			<li><a href="#radio" tabindex="-1">2: Live Radio</a></li>
+			<li><a href="#tv">0: TV</a></li>
+			<li><a href="#music">1: Music</a></li>
+			<li><a href="#radio">2: Live Radio</a></li>
 		</ul>
 		
-		<div id="tv" class="files" data-val="/home/mark/Videos/TV/" data-play="video-play.sh">
+		<div id="tv" class="file-browser load" data-val="/home/mark/Videos/TV/"
+				data-load="file-list.sh" data-play="video-play.sh">
+			<ul class="content"></ul>
 		</div>
 
-		<div id="music">
-			Music
+		<div id="music" data-play="music-play.sh">
+			<button type="button" id="music-play">Play</button>
 		</div>
 		
-		<div id="radio" data-play="radio-play.sh">
+		<div id="radio" class="load" data-load="radio-list.sh" data-play="radio-play.sh" data-trigger="play">
+			<ul class="content"></ul>
 		</div>
 	</div>
 </body>
