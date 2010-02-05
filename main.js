@@ -109,7 +109,7 @@ jQuery(function($) {
 			var num = event.keyCode - 48;
 
 			if ( num >= 1 && num <= 9 ) {
-				$('#tabs > .ui-tabs-nav > li:eq(' + num-1 +') > a').click();
+				$('#tabs > .ui-tabs-nav > li:eq(' + (num-1) +') > a').click();
 			}
 		})
 		
