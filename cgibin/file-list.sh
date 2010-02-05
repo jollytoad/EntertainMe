@@ -1,5 +1,5 @@
 #!/bin/sh
 echo "Content-type: text/plain"
 echo
-ls -1F $1
+ls -1FL $PWD/files/$1
 

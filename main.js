@@ -101,17 +101,34 @@ jQuery(function($) {
 })(jQuery);
 
 
+/*** Tabpanel Keyboard Shortcuts Agent ***/
+(function($) {
+
+	$(document)
+		.bind('keydown', function(event) {
+			var num = event.keyCode - 48;
+
+			if ( num >= 0 && num <= 9 ) {
+				$('#tabs > .ui-tabs-nav > li:eq(' + num +') > a').click();
+			}
+		})
+		
+		.ready(function() {
+			// Prepend numbers to tab text
+			$('#tabs > ul > li > a').prepend(function(i) {
+				return i + ': ';
+			});
+		});
+
+})(jQuery);
+
+
 /*** Keyboard Navigation Agent ***/
 (function($) {
 
 	$(document)
 		.bind('keydown', function(event) {
-			var kc = $.ui.keyCode,
-				num = event.keyCode - 48;
-
-			if ( num >= 0 && num <= 9 ) {
-				$('#tabs > .ui-tabs-nav > li:eq(' + num +') > a').click();
-			}
+			var kc = $.ui.keyCode;
 
 			switch (event.keyCode) {
 				case kc.LEFT:

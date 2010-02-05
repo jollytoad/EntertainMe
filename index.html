@@ -20,13 +20,18 @@
 
 	<div id="tabs">
 		<ul>
-			<li><a href="#tv">0: TV</a></li>
-			<li><a href="#radio">1: Live Radio</a></li>
-			<li><a href="#music">2: Playlists</a></li>
-			
+			<li><a href="#tv">TV Latest</a></li>
+			<li><a href="#radio">Live Radio</a></li>
+			<li><a href="#music">Playlists</a></li>
+			<li><a href="#archive">TV Archive</a></li>			
 		</ul>
 		
-		<div id="tv" class="file-browser load" data-val="/home/mark/Videos/TV/"
+		<div id="tv" class="file-browser load" data-val="TV/"
+				data-load="file-list.sh" data-play="video-play.sh">
+			<ul class="content"></ul>
+		</div>
+
+		<div id="archive" class="file-browser load" data-val="Archive/"
 				data-load="file-list.sh" data-play="video-play.sh">
 			<ul class="content"></ul>
 		</div>
