@@ -140,7 +140,7 @@ jQuery(function($) {
 				case kc.UP:
 				case kc.DOWN:
 					event.preventDefault();
-					var all = $('#tabs > .ui-tabs-panel:visible :focusable:not(:checkbox)'),
+					var all = $('#tabs > .ui-tabs-panel:visible :focusable:not(.nonav)'),
 						i = all.index(document.activeElement);
 						
 					if ( event.keyCode === kc.UP ) {
@@ -162,6 +162,20 @@ jQuery(function($) {
 		.bind('keydown', function(event) {
 			if ( event.keyCode === $.ui.keyCode.INSERT ) {
 				$(document.activeElement).closest('li').find(':checkbox').click();
+			}
+		});
+
+})(jQuery);
+
+
+/*** Keyboard Shortcut Agent ***/
+(function($) {
+
+	$(document)
+		.bind('keydown', function(event) {
+			var combo = $.keys.combo(event);
+			if ( combo && $('[data-key='+combo+']:visible').click().size() > 0 ) {
+				event.preventDefault();
 			}
 		});
 

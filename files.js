@@ -15,7 +15,7 @@
 						'class': isDir ? 'dir load' : 'file play'
 					}).appendTo(content);
 			
-				$('<input type="checkbox" tabindex="-1"/>').appendTo(li);
+				$('<input type="checkbox" class="nonav"/>').appendTo(li);
 				$('<a/>', { href: '#'+id+'|'+msg.val+line, text: line }).appendTo(li);
 
 				if ( isDir ) {
@@ -36,17 +36,27 @@
 	$('.file-browser').live('move', function(event) {
 		var cgi = $('#cgibin').attr('content'),
 			srcPath = $(event.target).closest('[data-val]').attr('data-val'),
-			dstPath = $(event.target).closest('[data-dest]').attr('data-dest');
+			dstPath = $(event.target).closest('[data-dest]').attr('data-dest'),
+			checked = $(':checked', this),
+			count = checked.size();
 		
-		$(':checked', this).each(function() {
+		checked.each(function() {
 			var src = $(this).closest('[data-val]').attr('data-val'),
 				dst = src.replace(srcPath, dstPath);
 
 			if ( src && dst ) {
-				console.log('move: ' + src + ' -> ' + dst);
+				$.post(cgi + 'file-move.sh?' + src + ';' + dst, function() {
+					count--;
+					// Refresh the lists after all moves have completed
+					if ( count === 0 ) {
+						window.setTimeout(function() {
+							$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
+						}, 0);
+					}
+				});
+			} else {
+				count--;
 			}
-			
-			$.post(cgi + 'file-move.sh?' + src + ';' + dst);
 		});
 	});
 
