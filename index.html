@@ -24,6 +24,7 @@
 			<li><a href="#tv">TV Latest</a></li>
 			<li><a href="#radio">Live Radio</a></li>
 			<li><a href="#music">Playlists</a></li>
+			<li><a href="#films">Films</a></li>
 			<li><a href="#archive">TV Archive</a></li>			
 		</ul>
 		
@@ -52,6 +53,13 @@
 				<button type="button" data-dest="Films/" data-key="esc" class="nonav">Esc: <b>Films</b></button>
 				<button type="button" data-dest="Trash/" data-key="delete" class="nonav">Del: <b>Trash</b></button>
 			</fieldset>
+		</div>
+
+		<div id="films" class="file-browser load" data-val="Films/"
+				data-load="file-list.sh" data-play="video-play.sh">
+
+			<button type="button" data-trigger="load" data-key="space" class="refresh nonav">Space: <b>Refresh</b></button>
+			<ul class="content"></ul>
 		</div>
 
 		<div id="music" class="load"
