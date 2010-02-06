@@ -1,3 +1,3 @@
 #!/bin/sh
-bozohttpd -bfse -I 8081 -c cgibin .
+bozohttpd -bs -I 8088 -c cgibin . >httpd.log 2>&1
 
