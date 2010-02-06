@@ -45,7 +45,7 @@ jQuery(function($) {
 (function($) {
 
 	$('.load').live('load', function(event) {
-		$('.content', this).each(function() {
+		$('> .content', this).each(function() {
 			var content = this,
 				cgi = $('#cgibin').attr('content'),
 				msg = {
@@ -140,7 +140,7 @@ jQuery(function($) {
 				case kc.UP:
 				case kc.DOWN:
 					event.preventDefault();
-					var all = $('#tabs > .ui-tabs-panel:visible :focusable'),
+					var all = $('#tabs > .ui-tabs-panel:visible :focusable:not(:checkbox)'),
 						i = all.index(document.activeElement);
 						
 					if ( event.keyCode === kc.UP ) {
@@ -149,6 +149,19 @@ jQuery(function($) {
 						all.eq(i >= 0 ? (i+1) % all.length : 0).focus();
 					}
 					break;
+			}
+		});
+
+})(jQuery);
+
+
+/*** Keyboard Item Selection Agent ***/
+(function($) {
+
+	$(document)
+		.bind('keydown', function(event) {
+			if ( event.keyCode === $.ui.keyCode.INSERT ) {
+				$(document.activeElement).closest('li').find(':checkbox').click();
 			}
 		});
 

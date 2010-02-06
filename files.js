@@ -15,6 +15,7 @@
 						'class': isDir ? 'dir load' : 'file play'
 					}).appendTo(content);
 			
+				$('<input type="checkbox" tabindex="-1"/>').appendTo(li);
 				$('<a/>', { href: '#'+id+'|'+msg.val+line, text: line }).appendTo(li);
 
 				if ( isDir ) {
@@ -24,6 +25,29 @@
 		});
 
 		$(content).trigger('updated');
+	});
+
+})(jQuery);
+
+
+/*** File Moving Agent ***/
+(function($) {
+
+	$('.file-browser').live('move', function(event) {
+		var cgi = $('#cgibin').attr('content'),
+			srcPath = $(event.target).closest('[data-val]').attr('data-val'),
+			dstPath = $(event.target).closest('[data-dest]').attr('data-dest');
+		
+		$(':checked', this).each(function() {
+			var src = $(this).closest('[data-val]').attr('data-val'),
+				dst = src.replace(srcPath, dstPath);
+
+			if ( src && dst ) {
+				console.log('move: ' + src + ' -> ' + dst);
+			}
+			
+			$.post(cgi + 'file-move.sh?' + src + ';' + dst);
+		});
 	});
 
 })(jQuery);

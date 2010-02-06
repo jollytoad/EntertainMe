@@ -28,11 +28,22 @@
 		
 		<div id="tv" class="file-browser load" data-val="TV/"
 				data-load="file-list.sh" data-play="video-play.sh">
+
+			<button type="button" data-trigger="load">Refresh list</button>
 			<ul class="content"></ul>
+
+			<fieldset data-trigger="move">
+				<legend>Move to...</legend>
+				<button type="button" data-dest="Archive/">Archive</button>
+				<button type="button" data-dest="Films/">Films</button>
+				<button type="button" data-dest="Trash/">Trash</button>
+			</fieldset>
 		</div>
 
 		<div id="archive" class="file-browser load" data-val="Archive/"
 				data-load="file-list.sh" data-play="video-play.sh">
+
+			<button type="button" data-trigger="load">Refresh list</button>
 			<ul class="content"></ul>
 		</div>
 
@@ -47,6 +58,7 @@
 			
 			<hr/>
 			
+			<button type="button" data-trigger="load">Refresh list</button>
 			<ul class="content" data-trigger="play"></ul>
 		</div>
 		

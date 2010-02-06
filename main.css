@@ -23,20 +23,20 @@ ul {
 	float: right;
 }
 
-#tv > ul {
+.file-browser > ul {
 	-webkit-column-count: 2;
 }
 
-#tv > ul ul {
+.file-browser > ul ul {
 	margin-bottom: 0.25em;
 }
 
-#tv > ul li {
+.file-browser > ul li {
 	margin: 0.1em;
 }
 
 #radio > ul {
-	-webkit-column-width: 20em;
+	-webkit-column-count: 3;
 }
 
 #radio > ul > li > a {
