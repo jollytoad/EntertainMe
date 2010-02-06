@@ -159,10 +159,8 @@ jQuery(function($) {
 (function($) {
 
 	$(document)
-		.bind('keydown', function(event) {
-			if ( event.keyCode === $.ui.keyCode.INSERT ) {
-				$(document.activeElement).closest('li').find(':checkbox').click();
-			}
+		.bind('keydown.key:insert', function(event) {
+				$(document.activeElement).closest('li').find('> :checkbox').click();
 		});
 
 })(jQuery);
