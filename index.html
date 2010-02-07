@@ -9,6 +9,7 @@
 	<script src="ext/jquery-ui.min.js"></script>
 	<script src="ext/jquery.keys.js"></script>
 	<script src="main.js"></script>
+	<script src="keys.js"></script>
 	<script src="files.js"></script>
 	<script src="radio.js"></script>
 	<script src="music.js"></script>
@@ -16,7 +17,7 @@
 <body>
 	<div class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
 		<label>Now playing:	<span id="nowplaying"></span></label>
-		<button type="button" id="stop" data-key="0">0: <b>Stop</b></button>
+		<button type="button" id="stop" data-key="0">Stop</button>
 	</div>
 
 	<div id="tabs">
@@ -31,62 +32,84 @@
 		<div id="tv" class="file-browser load" data-val="TV/"
 				data-load="file-list.sh" data-play="video-play.sh">
 
-			<button type="button" data-trigger="load" data-key="space" class="refresh nonav">Space: <b>Refresh</b></button>
+			<div style="float:left" class="actions" data-trigger="archive">
+				<button type="button" data-key="backspace" data-dest="Archive/" class="nonav">Archive</button>
+				<button type="button" data-key="esc" data-trigger="move" data-dest="Films/" class="nonav">Films</button>
+				<button type="button" data-key="delete" data-dest="Trash/" class="nonav">Trash</button>
+			</div>
+			
+			<div style="float:right" class="actions" data-trigger="load">
+				<button type="button" data-key="space" class="nonav">Refresh</button>
+			</div>
+
+			<hr style="clear:both"/>
+
 			<ul class="content"></ul>
 
-			<fieldset data-trigger="move">
-				<legend>Move to...</legend>
-				<button type="button" data-dest="Archive/" data-key="backspace" class="nonav">&larr;: <b>Archive</b></button>
-				<button type="button" data-dest="Films/" data-key="esc" class="nonav">Esc: <b>Films</b></button>
-				<button type="button" data-dest="Trash/" data-key="delete" class="nonav">Del: <b>Trash</b></button>
-			</fieldset>
 		</div>
 
 		<div id="archive" class="file-browser load" data-val="Archive/"
 				data-load="file-list.sh" data-play="video-play.sh">
 
-			<button type="button" data-trigger="load" data-key="space" class="refresh nonav">Space: <b>Refresh</b></button>
-			<ul class="content"></ul>
+			<div style="float:left" class="actions" data-trigger="move">
+				<button type="button" data-key="esc" data-dest="Films/" class="nonav">Films</button>
+				<button type="button" data-key="delete" data-dest="Trash/" class="nonav">Trash</button>
+			</div>
+			
+			<div style="float:right" class="actions" data-trigger="load">
+				<button type="button" data-key="space" class="nonav">Refresh</button>
+			</div>
 
-			<fieldset data-trigger="move">
-				<legend>Move to...</legend>
-				<button type="button" data-dest="Films/" data-key="esc" class="nonav">Esc: <b>Films</b></button>
-				<button type="button" data-dest="Trash/" data-key="delete" class="nonav">Del: <b>Trash</b></button>
-			</fieldset>
+			<hr style="clear:both"/>
+
+			<ul class="content"></ul>
 		</div>
 
 		<div id="films" class="file-browser load" data-val="Films/"
 				data-load="file-list.sh" data-play="video-play.sh">
+			
+			<div style="float:right" class="actions" data-trigger="load">
+				<button type="button" data-key="space" class="nonav">Refresh</button>
+			</div>
 
-			<button type="button" data-trigger="load" data-key="space" class="refresh nonav">Space: <b>Refresh</b></button>
+			<hr style="clear:both"/>
+
 			<ul class="content"></ul>
 		</div>
 
 		<div id="music" class="load"
 				data-load="music-playlists.sh" data-play="music-play.sh">
 
-			<div data-trigger="mpc">
+			<div style="float:left" data-trigger="mpc">
 				<button type="button" data-trigger="play">Play</button>
 				<button type="button" data-cmd="toggle">Play/Pause</button>
 				<button type="button" data-cmd="next">Skip</button>
 			</div
+
+			<div style="float:right" class="actions" data-trigger="load">
+				<button type="button" data-key="space" class="nonav">Refresh</button>
+			</div>
 			
-			<hr/>
-			
-			<button type="button" data-trigger="load" data-key="space" class="refresh nonav">Space: <b>Refresh</b></button>
+			<hr style="clear:both"/>
+
 			<ul class="content" data-trigger="play"></ul>
 		</div>
 		
 		<div id="radio" class="load" data-load="radio-list.sh" data-play="radio-play.sh" data-trigger="play">
 
-			<button type="button" data-trigger="load" data-key="space" class="refresh nonav">Space: <b>Refresh</b></button>
-			<ul class="content"></ul>
+			<div style="float:right" class="actions" data-trigger="load">
+				<button type="button" data-key="space" class="nonav">Refresh</button>
+			</div>
+			
+			<hr style="clear:both"/>
 
+			<ul class="content"></ul>
 		</div>
 	</div>
 	
-	<div id="keys" class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-		F5: <b>Refresh All</b>, Insert: <b>Toggle checkbox</b>, &crarr;: <b>Play/Expand</b>
+	<div id="keys" class="actions ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+		<button type="button" data-key="f5" class="info"/>Refresh All</button>
+		<button type="button" data-key="enter" class="info"/>Play/Expand</button>
 	</div>
 
 </body>

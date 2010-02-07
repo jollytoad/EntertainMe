@@ -2,7 +2,8 @@
 ARGS=$1
 IFS=";"
 set -- $ARGS
+DIR=$PWD/files/$(dirname "$2")
 echo "Content-type: text/plain"
 echo
-mv -n "$PWD/files/$1" "$PWD/files/$2"
+mkdir -p "$DIR" && mv -n "$PWD/files/$1" "$DIR"
 
