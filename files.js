@@ -8,7 +8,13 @@
 		$.each(msg.data.split(/\r?\n/), function(i, line) {
 			if ( line ) {
 				var isDir = /\/$/.test(line),
-					title = line.replace(/_[a-z0-9]{8}_(default|signed)\.mp4$/,'').replace(/_/g,' '),
+
+					title = line
+						.replace(/[*|@=>\/]+$/, '') // Strip file type character from end of name
+						.replace(/_[a-z0-9]{8}_(default|signed)\.mp4$/, '') // Strip iplayer info
+						.replace(/_/g, ' ') // Replace underscores
+						.replace(/[^A-Za-z0-9]*$/, ''), // Strip spurious characters from end of name
+
 					li = $('<li/>', {
 						'data-trigger': isDir ? 'load' : 'play',
 						'data-val': msg.val+line,
@@ -16,7 +22,10 @@
 						'class': isDir ? 'dir load' : 'file play'
 					}).appendTo(content);
 
-				$('<a/>', { href: '#'+id+'|'+msg.val+line, text: title }).appendTo(li);
+				$('<a/>', {
+					href: '#'+id+'|'+msg.val+line,
+					text: title
+				}).appendTo(li);
 
 				if ( isDir ) {
 					li.append('<ul class="content"/>');

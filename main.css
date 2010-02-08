@@ -52,6 +52,22 @@ ul {
 	margin: 0.1em;
 }
 
+li.dir > a {
+	font-style: italic;
+	font-size: 90%;
+	color: #A68;
+}
+li.dir > a::after {
+	content: "/";
+	font-size: 70%;
+}
+li.file > a {
+	color: #135;
+}
+li.playlist > a {
+	color: #153;
+}
+
 #radio > ul {
 	-webkit-column-count: 3;
 }
@@ -65,20 +81,18 @@ ul {
 	margin: 0.1em 0.25em;
 }
 
-#keys {
-	font-size: 80%;
-}
-
-[data-key] {
-	font-weight: bold;
-}
-[data-key]::before {
-	content: attr(data-key) ": ";
+[data-key]::after {
+	content: attr(data-key);
 	font-size: 80%;
 	font-weight: normal;
-	-font-family: monospace;
-	-letter-spacing: -1px;
+	opacity: 0.6;
+	border: 1px solid #DCC;
+	border-radius: 1em;
+	background-color: #FED;
+	color: #622;
+	padding: 0px 0.4em 1px;
+	margin-left: 0.4em;
 }
-[data-key=backspace]::before { content: "\2190: "; }
-[data-key=enter]::before { content: "\21B5: "; }
+[data-key=backspace]::after { content: "\2190"; }
+[data-key=enter]::after { content: "\21B5"; }
 

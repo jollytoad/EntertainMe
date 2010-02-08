@@ -34,7 +34,7 @@
 
 		$.each(msg.data.split(/\r?\n/), function(i, line) {
 			if ( line ) {
-				$('<li/>', { 'data-val': line, 'class': 'play' })
+				$('<li/>', { 'data-val': line, 'class': 'playlist play' })
 					.append(
 						$('<a/>', { href: '#music|'+line, text: line })
 					)
