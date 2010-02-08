@@ -8,22 +8,23 @@
 		$.each(msg.data.split(/\r?\n/), function(i, line) {
 			if ( line ) {
 				var isDir = /\/$/.test(line),
+					clean = line.replace(/[\*\|@=>]+$/, ''),
 
 					title = line
-						.replace(/[*|@=>\/]+$/, '') // Strip file type character from end of name
+						.replace(/[\*\|@=>\/]+$/, '') // Strip file type character from end of name
 						.replace(/_[a-z0-9]{8}_(default|signed)\.(mp4|mov|flv)$/, '') // Strip iplayer info
 						.replace(/_/g, ' ') // Replace underscores
 						.replace(/[^A-Za-z0-9]*$/, ''), // Strip spurious characters from end of name
 
 					li = $('<li/>', {
 						'data-trigger': isDir ? 'load' : 'play',
-						'data-val': msg.val+line,
-						'data-title': line,
+						'data-val': msg.val+clean,
+						'data-title': title,
 						'class': isDir ? 'dir load' : 'file play'
 					}).appendTo(content);
 
 				$('<a/>', {
-					href: '#'+id+'|'+msg.val+line,
+					href: '#'+id+'|'+msg.val+clean,
 					text: title
 				}).appendTo(li);
 

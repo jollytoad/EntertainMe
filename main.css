@@ -24,6 +24,11 @@ ul {
 	font-size: 90%;
 }
 
+.ui-tabs-panel {
+	overflow: auto;
+	height: auto;
+}
+
 .ui-tabs-panel > ul {
 	padding: 0;
 	margin: 0;
