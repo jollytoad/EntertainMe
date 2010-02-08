@@ -11,7 +11,7 @@
 
 					title = line
 						.replace(/[*|@=>\/]+$/, '') // Strip file type character from end of name
-						.replace(/_[a-z0-9]{8}_(default|signed)\.mp4$/, '') // Strip iplayer info
+						.replace(/_[a-z0-9]{8}_(default|signed)\.(mp4|mov|flv)$/, '') // Strip iplayer info
 						.replace(/_/g, ' ') // Replace underscores
 						.replace(/[^A-Za-z0-9]*$/, ''), // Strip spurious characters from end of name
 
