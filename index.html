@@ -26,7 +26,8 @@
 			<li><a href="#radio">Live Radio</a></li>
 			<li><a href="#music">Playlists</a></li>
 			<li><a href="#films">Films</a></li>
-			<li><a href="#archive">TV Archive</a></li>			
+			<li><a href="#archive">TV Archive</a></li>
+			<li><a href="#ext">External</a></li>
 		</ul>
 		
 		<div id="tv" class="file-browser load" data-val="TV/"
@@ -68,6 +69,18 @@
 		<div id="films" class="file-browser load" data-val="Films/"
 				data-load="file-list.sh" data-play="video-play.sh">
 			
+			<div style="float:right" class="actions" data-trigger="load">
+				<button type="button" data-key="space" class="nonav">Refresh</button>
+			</div>
+
+			<hr style="clear:both"/>
+
+			<ul class="content"></ul>
+		</div>
+
+		<div id="ext" class="file-browser load" data-val="Ext/"
+				data-load="file-list.sh" data-play="video-play.sh">
+
 			<div style="float:right" class="actions" data-trigger="load">
 				<button type="button" data-key="space" class="nonav">Refresh</button>
 			</div>
