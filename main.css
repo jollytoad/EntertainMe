@@ -101,3 +101,7 @@ li.playlist > a {
 [data-key=backspace]::after { content: "\2190"; }
 [data-key=enter]::after { content: "\21B5"; }
 
+.lock {
+	color: red !important;
+}
+

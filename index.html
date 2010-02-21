@@ -33,7 +33,7 @@
 		<div id="tv" class="file-browser load" data-val="TV/"
 				data-load="file-list.sh" data-play="video-play.sh">
 
-			<div style="float:left" class="actions" data-trigger="archive">
+			<div style="float:left" class="actions target-active" data-trigger="archive">
 				<button type="button" data-key="backspace" data-dest="Archive/" class="nonav">Archive</button>
 				<button type="button" data-key="esc" data-trigger="move" data-dest="Films/" class="nonav">Films</button>
 				<button type="button" data-key="delete" data-dest="Trash/" class="nonav">Trash</button>
@@ -52,7 +52,7 @@
 		<div id="archive" class="file-browser load" data-val="Archive/"
 				data-load="file-list.sh" data-play="video-play.sh">
 
-			<div style="float:left" class="actions" data-trigger="move">
+			<div style="float:left" class="actions target-active" data-trigger="move">
 				<button type="button" data-key="esc" data-dest="Films/" class="nonav">Films</button>
 				<button type="button" data-key="delete" data-dest="Trash/" class="nonav">Trash</button>
 			</div>
@@ -125,12 +125,6 @@
 			<button type="button" data-key="enter" class="info"/>Play/Expand</button>
 	</div>
 
-	<div id="tv-archive-dialog" title="Archive Programme?" style="display:none">
-		<p>
-			<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
-			<span class="name"></span>
-		</p>
-	</div>
 </body>
 </html>
 

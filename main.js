@@ -34,9 +34,15 @@ jQuery(function($) {
 (function($) {
 
 	$('a, :button').live('click', function() {
-		var type = $(this).closest('[data-trigger]').attr('data-trigger');
+		var o = $(this).closest('[data-trigger]'),
+			type = o.attr('data-trigger');
+
 		if ( type ) {
-			$(this).trigger(type);
+			if ( o.hasClass('target-active') ) {
+				$(document.activeElement).not('.lock').trigger(type, [ this ]);
+			} else {
+				$(this).trigger(type);
+			}
 		}
 	});
 
@@ -103,6 +109,7 @@ jQuery(function($) {
 })(jQuery);
 
 /*** Ask whether TV programme should be archived after watching ***/
+/*
 jQuery(function($) {
 	$('#tv')
 		.bind('play', function(event) {
@@ -142,4 +149,5 @@ jQuery(function($) {
 				.bind('keydown.key:enter', archive);
 		});
 })(jQuery);
+*/
 

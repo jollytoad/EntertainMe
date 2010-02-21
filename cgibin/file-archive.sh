@@ -2,8 +2,10 @@
 ARGS=$1
 IFS=";"
 set -- $ARGS
-DIR=$PWD/files/$(dirname "$2")
+SRC="$PWD/files/$1"
+DST=$PWD/files/$(dirname "$2")
+DIR=$(dirname "$SRC")
 echo "Content-type: text/plain"
 echo
-mkdir -p "$DIR" && mv -n "$PWD/files/$1" "$DIR"
+mkdir -p "$DST" && mv -n "$SRC" "$DST" && rmdir "$DIR"
 

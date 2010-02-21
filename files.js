@@ -44,31 +44,35 @@
 (function($) {
 
 	$('.file-browser')
-		.live('archive', function(event) {
+		.live('archive', function(event, origin) {
 			var cgi = $('#cgibin').attr('content'),
-				srcPath = $(event.target).closest('[data-val]').attr('data-val'),
-				dstPath = $(event.target).closest('[data-dest]').attr('data-dest'),
-				src = $(document.activeElement).closest('[data-val]').attr('data-val') || "",
+				item = event.target,
+				srcPath = $(origin).closest('[data-val]').attr('data-val'),
+				dstPath = $(origin).closest('[data-dest]').attr('data-dest'),
+				src = $(item).closest('[data-val]').attr('data-val') || "",
 				dst = src.replace(srcPath, dstPath);
 
 //			console.log('archive: ', src, ' -> ', dst);
 
 			if ( src && dst ) {
+				$(item).addClass('lock');
 				$.post(cgi + 'file-archive.sh?' + src + ';' + dst, function() {
 					$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
 				});
 			}
 		})
 
-		.live('move', function(event) {
+		.live('move', function(event, origin) {
 			var cgi = $('#cgibin').attr('content'),
-				srcPath = $(event.target).closest('[data-val]').attr('data-val'),
-				dstPath = $(event.target).closest('[data-dest]').attr('data-dest'),
-				src = $(document.activeElement).closest('[data-val]').attr('data-val');
+				item = event.target,
+				srcPath = $(origin).closest('[data-val]').attr('data-val'),
+				dstPath = $(origin).closest('[data-dest]').attr('data-dest'),
+				src = $(item).closest('[data-val]').attr('data-val');
 
 //			console.log('move: ', src, ' -> ', dstPath);
 
 			if ( src && dstPath ) {
+				$(item).addClass('lock');
 				$.post(cgi + 'file-move.sh?' + src + ';' + dstPath, function() {
 					$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
 				});
