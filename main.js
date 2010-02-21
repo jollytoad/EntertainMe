@@ -84,10 +84,10 @@ jQuery(function($) {
 
 			$(document)
 				.one('stopped', function() {
-//					$.post(cgi + msg.action + '?' + msg.val, function(data) {
-//						msg.data = data;
-//						$(document).trigger('playing', [ msg ]);
-//					});
+					$.post(cgi + msg.action + '?' + msg.val, function(data) {
+						msg.data = data;
+						$(document).trigger('playing', [ msg ]);
+					});
 				})
 				.trigger('stop');
 		})
