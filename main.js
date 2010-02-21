@@ -1,3 +1,5 @@
+/*global jQuery, document */
+
 /*** Main UI Setup ***/
 jQuery(function($) {
 	$('#tabs').tabs();
@@ -82,10 +84,10 @@ jQuery(function($) {
 
 			$(document)
 				.one('stopped', function() {
-					$.post(cgi + msg.action + '?' + msg.val, function(data) {
-						msg.data = data;
-						$(document).trigger('playing', [ msg ]);
-					});
+//					$.post(cgi + msg.action + '?' + msg.val, function(data) {
+//						msg.data = data;
+//						$(document).trigger('playing', [ msg ]);
+//					});
 				})
 				.trigger('stop');
 		})
@@ -98,5 +100,46 @@ jQuery(function($) {
 			});
 		});
 
+})(jQuery);
+
+/*** Ask whether TV programme should be archived after watching ***/
+jQuery(function($) {
+	$('#tv')
+		.bind('play', function(event) {
+			var cgi = $('#cgibin').attr('content'),
+				dialog = $('#tv-archive-dialog'),
+				src = $(event.target).closest('[data-val]').attr('data-val') || "",
+				title = $(event.target).closest('[data-title]').attr('data-title'),
+				dst = src.replace('TV/', 'Archive/');
+
+			function done() {
+				dialog.unbind('keydown').dialog('close');
+			}
+
+			function archive() {
+				$.post(cgi + 'file-archive.sh?' + src + ';' + dst, function() {
+					$("#tv, #archive").trigger('load');
+				});
+				done();
+			}
+
+			$('.name', dialog).text(title);
+
+			dialog
+				.dialog({
+					resizable: false,
+					height: 140,
+					modal: true,
+					overlay: {
+						backgroundColor: '#000',
+						opacity: 0.5
+					},
+					buttons: {
+						'Yes': archive,
+						'No': done
+					}
+				})
+				.bind('keydown.key:enter', archive);
+		});
 })(jQuery);
 
