@@ -57,7 +57,8 @@
 			if ( src && dst ) {
 				$(item).addClass('lock');
 				$.post(cgi + 'file-archive.sh?' + src + ';' + dst, function() {
-					$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
+					$(item).addClass('gone');
+//					$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
 				});
 			}
 		})
@@ -74,7 +75,8 @@
 			if ( src && dstPath ) {
 				$(item).addClass('lock');
 				$.post(cgi + 'file-move.sh?' + src + ';' + dstPath, function() {
-					$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
+					$(item).addClass('gone');
+//					$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
 				});
 			}
 		});

@@ -104,4 +104,7 @@ li.playlist > a {
 .lock {
 	color: red !important;
 }
+.gone {
+	opacity: 0.3;
+}
 
