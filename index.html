@@ -25,6 +25,7 @@
 		<ul>
 			<li><a href="#tv">TV Latest</a></li>
 			<li><a href="#radio">Live Radio</a></li>
+			<li><a href="#radio-comedy">Radio Comedy</a></li>
 			<li><a href="#music">Playlists</a></li>
 			<li><a href="#films">Films</a></li>
 			<li><a href="#archive">TV Archive</a></li>
@@ -123,11 +124,21 @@
 
 			<ul class="content"></ul>
 		</div>
+
+		<div id="radio-comedy" class="progs load" data-load="radio-comedy.sh" data-play="radio-play.sh" data-trigger="play">
+			<div style="float:right" class="actions" data-trigger="load">
+				<button type="button" data-key="space" class="nonav">Refresh</button>
+			</div>
+
+			<hr style="clear:both"/>
+			
+			<ul class="content"></ul>		
+		</div>
 	</div>
 	
 	<div class="footer actions ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
-			<button type="button" data-key="f5" class="info"/>Refresh All</button>
-			<button type="button" data-key="enter" class="info"/>Play/Expand</button>
+			<button type="button" data-key="f5" class="info">Refresh All</button>
+			<button type="button" data-key="enter" class="info">Play/Expand</button>
 	</div>
 
 </body>
