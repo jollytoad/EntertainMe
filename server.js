@@ -6,26 +6,23 @@ var fu = require("./fu"),
     sys = require("sys"),
     path = require("path"),
     url = require("url"),
-    spawn = require("child_process").spawn;
-//    qs = require("querystring");
-
-var playing;
+    player = required("player");
 
 fu.listen(PORT, HOST);
 
 fu.staticFiles({
-	"/":				"index.html",
-	"/main.css":		"main.css",
-	"/main.js":			"main.js",
-	"/keys.js":			"keys.js",
-	"/files.js":		"files.js",
-	"/radio.js":		"radio.js",
-	"/music.js":		"music.js",
-	"/external.js":		"external.js",
-	"/jquery.js":		"ext/jquery-1.4.1.min.js",
-	"/jquery-ui.css":	"ext/jquery-ui.css",
-	"/jquery-ui.js":	"ext/jquery-ui.min.js",
-	"/jquery.keys.js":	"ext/jquery.keys.js"
+	"/":                "index.html",
+	"/main.css":        "main.css",
+	"/main.js":         "main.js",
+	"/keys.js":         "keys.js",
+	"/files.js":        "files.js",
+	"/radio.js":        "radio.js",
+	"/music.js":        "music.js",
+	"/external.js":     "external.js",
+	"/jquery.js":       "ext/jquery-1.4.1.min.js",
+	"/jquery-ui.css":   "ext/jquery-ui.css",
+	"/jquery-ui.js":    "ext/jquery-ui.min.js",
+	"/jquery.keys.js":  "ext/jquery.keys.js"
 });
 
 fu.get("/files", function(req, res, dir) {

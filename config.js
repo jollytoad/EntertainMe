@@ -1,0 +1,6 @@
+{
+    "mediaplayers": {
+        "video": "vlc"
+    }
+}
+
