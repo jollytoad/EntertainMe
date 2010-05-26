@@ -2,18 +2,17 @@
 <html>
 <head>
 	<title>Media Centre</title>
-	<meta id="cgibin" name="cgibin" content="cgi-bin/"/>
-	<link rel="stylesheet" href="ext/jquery-ui.css" media="screen"/>
+	<link rel="stylesheet" href="jquery-ui.css" media="screen"/>
 	<link rel="stylesheet" href="main.css" media="screen"/>
-	<script src="ext/jquery-1.4.1.min.js"></script>
-	<script src="ext/jquery-ui.min.js"></script>
-	<script src="ext/jquery.keys.js"></script>
+	<script src="jquery.js"></script>
+	<script src="jquery-ui.js"></script>
+	<script src="jquery.keys.js"></script>
 	<script src="main.js"></script>
 	<script src="keys.js"></script>
 	<script src="files.js"></script>
-	<script src="radio.js"></script>
-	<script src="music.js"></script>
-	<script src="external.js"></script>
+<!--	<script src="radio.js"></script>-->
+<!--	<script src="music.js"></script>-->
+<!--	<script src="external.js"></script>-->
 </head>
 <body>
 	<div class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
@@ -32,8 +31,7 @@
 			<li><a href="#ext">External</a></li>
 		</ul>
 		
-		<div id="tv" class="file-browser load" data-val="TV/"
-				data-load="file-list.sh" data-play="video-play.sh">
+		<div id="tv" class="file-browser load" data-load="/files/TV">
 
 			<div style="float:left" class="actions target-active" data-trigger="archive">
 				<button type="button" data-key="backspace" data-dest="Archive/" class="nonav">Archive</button>
@@ -51,8 +49,7 @@
 
 		</div>
 
-		<div id="archive" class="file-browser load" data-val="Archive/"
-				data-load="file-list.sh" data-play="video-play.sh">
+		<div id="archive" class="file-browser load" data-load="/files/Archive">
 
 			<div style="float:left" class="actions target-active" data-trigger="move">
 				<button type="button" data-key="esc" data-dest="Films/" class="nonav">Films</button>
@@ -68,8 +65,7 @@
 			<ul class="content"></ul>
 		</div>
 
-		<div id="films" class="file-browser load" data-val="Films/"
-				data-load="file-list.sh" data-play="video-play.sh">
+		<div id="films" class="file-browser load" data-load="/files/Films">
 			
 			<div style="float:right" class="actions" data-trigger="load">
 				<button type="button" data-key="space" class="nonav">Refresh</button>
@@ -80,8 +76,7 @@
 			<ul class="content"></ul>
 		</div>
 
-		<div id="ext" class="file-browser load" data-val="Ext/"
-				data-load="file-list.sh" data-play="video-play.sh">
+		<div id="ext" class="file-browser load" data-load="/files/Ext">
 
 			<div style="float:left">
 				<button type="button" data-trigger="eject">Eject</button>
@@ -96,8 +91,7 @@
 			<ul class="content"></ul>
 		</div>
 
-		<div id="music" class="load"
-				data-load="music-playlists.sh" data-play="music-play.sh">
+		<div id="music" class="load" data-load="/mpd/playlists">
 
 			<div style="float:left" data-trigger="mpc">
 				<button type="button" data-trigger="play">Play</button>
@@ -114,7 +108,7 @@
 			<ul class="content" data-trigger="play"></ul>
 		</div>
 		
-		<div id="radio" class="load" data-load="radio-list.sh" data-play="radio-play.sh" data-trigger="play">
+		<div id="radio" class="load" data-load="/radio/live" data-trigger="play">
 
 			<div style="float:right" class="actions" data-trigger="load">
 				<button type="button" data-key="space" class="nonav">Refresh</button>
@@ -125,7 +119,7 @@
 			<ul class="content"></ul>
 		</div>
 
-		<div id="radio-comedy" class="progs load" data-load="radio-comedy.sh" data-play="radio-play.sh" data-trigger="play">
+		<div id="radio-comedy" class="progs load" data-load="/radio/comedy" data-trigger="play">
 			<div style="float:right" class="actions" data-trigger="load">
 				<button type="button" data-key="space" class="nonav">Refresh</button>
 			</div>

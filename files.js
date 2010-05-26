@@ -5,32 +5,31 @@
 		var content = this,
 			id = $(content).closest('.ui-tabs-panel').attr('id');
 
-		$.each(msg.data.split(/\r?\n/), function(i, line) {
-			if ( line ) {
-				var isDir = /\/$/.test(line),
-					clean = line.replace(/[\*\|@=>]+$/, ''),
+		$.each(msg.data.files, function(name, info) {
+			var title = name
+					.replace(/[\*\|@=>\/]+$/, '') // Strip file type character from end of name
+					.replace(/_[a-z0-9]{8}_(default|signed)\.(mp4|mov|flv)$/, '') // Strip iplayer info
+					.replace(/_/g, ' ') // Replace underscores
+					.replace(/[^A-Za-z0-9]*$/, ''), // Strip spurious characters from end of name
 
-					title = line
-						.replace(/[\*\|@=>\/]+$/, '') // Strip file type character from end of name
-						.replace(/_[a-z0-9]{8}_(default|signed)\.(mp4|mov|flv)$/, '') // Strip iplayer info
-						.replace(/_/g, ' ') // Replace underscores
-						.replace(/[^A-Za-z0-9]*$/, ''), // Strip spurious characters from end of name
+				li = $('<li/>', {
+					'data-trigger': info.dir ? 'load' : 'play',
+					'data-load': msg.data.baseUrl+'/'+name,
+					'data-title': title,
+					'class': info.dir ? 'dir load' : 'file play'
+				}).appendTo(content);
 
-					li = $('<li/>', {
-						'data-trigger': isDir ? 'load' : 'play',
-						'data-val': msg.val+clean,
-						'data-title': title,
-						'class': isDir ? 'dir load' : 'file play'
-					}).appendTo(content);
+			$('<a/>', {
+				href: '#'+id+'|'+msg.data.dir+'/'+name,
+				text: title
+			}).appendTo(li);
 
-				$('<a/>', {
-					href: '#'+id+'|'+msg.val+clean,
-					text: title
-				}).appendTo(li);
-
-				if ( isDir ) {
-					li.append('<ul class="content"/>');
-				}
+			if ( info.dir ) {
+				li.append('<ul class="content"/>');
+			}
+			
+			if ( info.file && info.mime ) {
+				li.attr('data-mime', info.mime);
 			}
 		});
 

@@ -33,11 +33,11 @@ jQuery(function($) {
 /*** Click-n-Trigger Agent ***/
 (function($) {
 
-	$('a, :button').live('click', function() {
+	$('a, :button').live('click', function(event) {
 		var o = $(this).closest('[data-trigger]'),
 			type = o.attr('data-trigger');
 
-		if ( type ) {
+		if ( type ) {			
 			if ( o.hasClass('target-active') ) {
 				$(document.activeElement).not('.lock').trigger(type, [ this ]);
 			} else {
@@ -61,10 +61,10 @@ jQuery(function($) {
 					val: $(event.target).closest('[data-val]').attr('data-val')
 				};
 
-			$.get(cgi + msg.action + '?' + msg.val, function(data) {
+			$.get(msg.action + '?' + msg.val, function(data) {
 				msg.data = data;
 				$(content).empty().trigger('loaded', [ msg ]);
-			}, 'text');
+			});
 		});
 	});
 	
@@ -83,14 +83,13 @@ jQuery(function($) {
 		.bind('play', function(event) {
 			var cgi = $('#cgibin').attr('content'),
 				msg = {
-					action: $(event.target).closest('[data-play]').attr('data-play'),
-					val: $(event.target).closest('[data-val]').attr('data-val') || "",
+					action: $(event.target).closest('[data-load]').attr('data-load'),
 					title: $(event.target).closest('[data-title]').attr('data-title')
 				};
 
 			$(document)
 				.one('stopped', function() {
-					$.post(cgi + msg.action + '?' + msg.val, function(data) {
+					$.post(msg.action + '?play', function(data) {
 						msg.data = data;
 						$(document).trigger('playing', [ msg ]);
 					});
@@ -101,7 +100,7 @@ jQuery(function($) {
 		.bind('stop', function(event) {
 			var cgi = $('#cgibin').attr('content');
 
-			$.post(cgi+'stop.sh', function() {
+			$.post('/stop', function() {
 				$(document).trigger('stopped');
 			});
 		});
