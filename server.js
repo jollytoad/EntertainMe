@@ -2,27 +2,34 @@ HOST = null; // localhost
 PORT = 8088;
 
 var fu = require("./fu"),
+	mime = require("./mime"),
 	fs = require("fs"),
     sys = require("sys"),
     path = require("path"),
     url = require("url"),
-    player = required("player");
+    media = require("./media");
+
+var playing;
 
 fu.listen(PORT, HOST);
 
 fu.staticFiles({
-	"/":                "index.html",
+	"/":                "client.html",
+	"/tree":			"file-browser.html",
 	"/main.css":        "main.css",
 	"/main.js":         "main.js",
+	"/client.js":		"client.js",
 	"/keys.js":         "keys.js",
 	"/files.js":        "files.js",
 	"/radio.js":        "radio.js",
 	"/music.js":        "music.js",
 	"/external.js":     "external.js",
 	"/jquery.js":       "ext/jquery-1.4.1.min.js",
+	"/jquery.tmpl.js":  "ext/jquery.tmpl.js",
 	"/jquery-ui.css":   "ext/jquery-ui.css",
 	"/jquery-ui.js":    "ext/jquery-ui.min.js",
-	"/jquery.keys.js":  "ext/jquery.keys.js"
+	"/jquery.keys.js":  "ext/jquery.keys.js",
+	"/config.json":     "config.json"
 });
 
 fu.get("/files", function(req, res, dir) {
@@ -57,7 +64,7 @@ fu.get("/files", function(req, res, dir) {
 					
 					if ( stats.isFile() ) {
 						info.file = true;
-						info.mime = fu.mime.lookupExtension(path.extname(filename));
+						info.mime = mime.lookup(filename);
 					} else if ( stats.isDirectory() ) {
 						info.dir = true;
 					}
@@ -73,14 +80,6 @@ fu.get("/files", function(req, res, dir) {
 	});
 });
 
-function play(cmd, args) {
-	playing = spawn(cmd, args, { "DISPLAY": ':0.0' } );
-	playing.addListener('exit', function (code) {
-		sys.puts('exit: ' + cmd);
-		playing = undefined;
-	});
-}
-
 fu.post("/files", function(req, res, file) {
 	var query = url.parse(req.url).query,
 		fullname = "files" + file;
@@ -88,16 +87,12 @@ fu.post("/files", function(req, res, file) {
 	if (query === 'play') {
 		sys.puts('play: ' + fullname);
 		
-		play('/usr/bin/vlc', ['--fullscreen', '--play-and-exit', fullname]);
+		playing = media.play(fullname);
 	}
 });
 
 fu.post('/stop', function(req, res) {
-	if (playing) {
-		playing.stdin.end();
-		playing.kill();
-		playing = undefined;
-	}
+	media.stop(playing);
 	res.simpleText(200, "Stopped");
 });
 

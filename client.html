@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Media Centre</title>
+	<link rel="stylesheet" href="jquery-ui.css" media="screen"/>
+	<link rel="stylesheet" href="main.css" media="screen"/>
+	<script src="jquery.js"></script>
+	<script src="jquery.tmpl.js"></script>
+	<script src="jquery-ui.js"></script>
+	<script src="jquery.keys.js"></script>
+	<script src="client.js"></script>
+</head>
+<body>
+	<div class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+		<label>Now playing:	<span id="nowplaying"></span></label>
+		<button type="button" id="stop" data-key="0">Stop</button>
+	</div>
+
+	<script id="tab-tmpl" type="text/html">
+		<li><a href="#${id}">${name}</a></li>
+	</script>
+	
+	<script id="tabpanel-tmpl" type="text/html">
+		<div id="${id}" class="file-browser load" data-template="#${template}-tmpl" data-load="${list}">
+		</div>
+	</script>
+
+	<script id="tree-tmpl" type="text/html">
+		<div style="float:left" class="actions target-active" data-trigger="archive">
+			<button type="button" data-key="backspace" data-dest="Archive/" class="nonav">Archive</button>
+			<button type="button" data-key="esc" data-trigger="move" data-dest="Films/" class="nonav">Films</button>
+			<button type="button" data-key="delete" data-dest="Trash/" class="nonav">Trash</button>
+		</div>
+
+		<div style="float:right" class="actions" data-trigger="load">
+			<button type="button" data-key="space" class="nonav">Refresh</button>
+		</div>
+
+		<hr style="clear:both"/>
+
+		<ul class="content"></ul>
+	</script>
+
+	<div id="tabs">
+		<ul>
+		</ul>
+	</div>
+	
+	<div class="footer actions ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+			<button type="button" data-key="f5" class="info">Refresh All</button>
+			<button type="button" data-key="enter" class="info">Play/Expand</button>
+	</div>
+
+</body>
+</html>
+

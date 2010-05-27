@@ -1,0 +1,53 @@
+{
+	"tabs": [
+		{
+			"id": "tv-latest",
+			"name": "TV Latest",
+			"template": "tree",
+			"list": "/files/TV"
+		},
+		{
+			"id": "radio-live",
+			"name": "Live Radio",
+			"template": "list",
+			"list": "/radio/live"
+		},
+		{
+			"id": "radio-comedy",
+			"name": "Radio Comedy",
+			"template": "programme-guide",
+			"list": "/radio/comedy"
+		},
+		{
+			"id": "mpd-playlists",
+			"name": "Playlists",
+			"template": "list",
+			"list": "/mpd/playlists"
+		},
+		{
+			"id": "films",
+			"name": "Films",
+			"template": "programme-guide",
+			"list": "/files/Films"
+		},
+		{
+			"id": "tv-archive",
+			"name": "TV Archive",
+			"template": "tree",
+			"list": "/files/Archive"
+		},
+		{
+			"id": "ext",
+			"name": "External",
+			"template": "tree",
+			"list": "/files/Ext"
+		}
+	],
+	"templates": {
+		"tree": {
+			"content": "file-browser.html",
+			"script": [ "files.js" ]
+		}
+	}
+}
+
