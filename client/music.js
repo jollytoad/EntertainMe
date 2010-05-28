@@ -32,14 +32,12 @@
 	$('#music .content').live('loaded', function(event, msg) {
 		var content = this;
 
-		$.each(msg.data.split(/\r?\n/), function(i, line) {
-			if ( line ) {
-				$('<li/>', { 'data-val': line, 'class': 'playlist play' })
-					.append(
-						$('<a/>', { href: '#music|'+line, text: line })
-					)
-					.appendTo(content);
-			}
+		$.each(msg.data, function(i, playlist) {
+			$('<li/>', { 'data-val': playlist, 'class': 'playlist play' })
+				.append(
+					$('<a/>', { href: '#music|'+playlist, text: playlist })
+				)
+				.appendTo(content);
 		});
 
 		$(content).trigger('updated');

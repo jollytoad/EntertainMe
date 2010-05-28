@@ -6,7 +6,8 @@
 			id = $(content).closest('.ui-tabs-panel').attr('id');
 
 		$.each(msg.data.files, function(name, info) {
-			var title = name
+			var url = msg.data.path + '/' + name,
+				title = name
 					.replace(/[\*\|@=>\/]+$/, '') // Strip file type character from end of name
 					.replace(/_[a-z0-9]{8}_(default|signed)\.(mp4|mov|flv)$/, '') // Strip iplayer info
 					.replace(/_/g, ' ') // Replace underscores
@@ -14,13 +15,13 @@
 
 				li = $('<li/>', {
 					'data-trigger': info.dir ? 'load' : 'play',
-					'data-load': msg.data.baseUrl+'/'+name,
+					'data-load': url,
 					'data-title': title,
 					'class': info.dir ? 'dir load' : 'file play'
 				}).appendTo(content);
 
 			$('<a/>', {
-				href: '#'+id+'|'+msg.data.dir+'/'+name,
+				href: '/#'+id+'|'+url,
 				text: title
 			}).appendTo(li);
 

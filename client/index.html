@@ -2,16 +2,17 @@
 <html>
 <head>
 	<title>Media Centre</title>
+	<base href="/client/"/>
 	<link rel="stylesheet" href="jquery-ui.css" media="screen"/>
 	<link rel="stylesheet" href="main.css" media="screen"/>
-	<script src="jquery.js"></script>
-	<script src="jquery-ui.js"></script>
+	<script src="jquery-1.4.1.min.js"></script>
+	<script src="jquery-ui.min.js"></script>
 	<script src="jquery.keys.js"></script>
 	<script src="main.js"></script>
 	<script src="keys.js"></script>
 	<script src="files.js"></script>
 <!--	<script src="radio.js"></script>-->
-<!--	<script src="music.js"></script>-->
+	<script src="music.js"></script>
 <!--	<script src="external.js"></script>-->
 </head>
 <body>
@@ -91,7 +92,7 @@
 			<ul class="content"></ul>
 		</div>
 
-		<div id="music" class="load" data-load="/mpd/playlists">
+		<div id="music" class="load" data-load="/mpd/listplaylists">
 
 			<div style="float:left" data-trigger="mpc">
 				<button type="button" data-trigger="play">Play</button>
