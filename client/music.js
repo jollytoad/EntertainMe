@@ -32,10 +32,10 @@
 	$('#music .content').live('loaded', function(event, msg) {
 		var content = this;
 
-		$.each(msg.data, function(i, playlist) {
-			$('<li/>', { 'data-val': playlist, 'class': 'playlist play' })
+		$.each(msg.data, function(i, data) {
+			$('<li/>', { 'data-val': data.playlist, 'class': 'playlist play' })
 				.append(
-					$('<a/>', { href: '#music|'+playlist, text: playlist })
+					$('<a/>', { href: '#music|'+data.playlist, text: data.playlist })
 				)
 				.appendTo(content);
 		});
