@@ -1,27 +1,34 @@
 var spawn = require("child_process").spawn,
     mime = require("./mime"),
-    extend = require("./underscore")._.extend;
+    extend = require("./underscore")._.extend,
+    player;
 
 function Player(mediaId) {
 	if ( mediaId ) {
 		this.mediaId = mediaId;
 		this.contentType = mime.lookup(mediaId);
-		this.playerName = exports.contentTypePlayers[this.contentType] || exports.contentTypePlayers[this.contentType.split('/')[0]] || 'none';
+
+		this.playerName = exports.contentTypePlayers[this.contentType]
+					   || exports.contentTypePlayers[this.contentType.split('/')[0]]
+					   || 'none';
+
 		extend(this, exports.players[this.playerName]);
 	}
 }
+
 Player.prototype.play = function(callback) { callback(this); };
 Player.prototype.stop = function(callback) { callback(this); };
+
 
 exports.Player = Player;
 
 exports.play = function(mediaId, callback) {
-	var player = new Player(mediaId);
+	player = new Player(mediaId);
 	player.play(callback || function() {});
 	return player;
 };
 
-exports.stop = function(player, callback) {
+exports.stop = function(callback) {
 	if ( player && player.stop ) {
 		player.stop(callback || function() {});
 	}
