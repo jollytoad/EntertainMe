@@ -12,7 +12,7 @@ proto.simpleResponse = function(code, body, contentType, encoding, headers) {
 }
 
 proto.notFound = function(message) {
-	this.simpleResponse(404, (message || "Not Found\n") + "", "text/plain");
+	this.simpleText(404, (message || "Not Found\n") + "");
 };
 
 // Performs an HTTP 302 redirect

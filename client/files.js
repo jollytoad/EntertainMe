@@ -43,6 +43,11 @@
 /*** File Moving Agent ***/
 (function($) {
 
+	function basename(path) {
+		var parts = path.split("/");
+		return parts[parts.length-1];
+	}
+
 	$('.file-browser')
 		.live('archive', function(event, origin) {
 			var cgi = $('#cgibin').attr('content'),
@@ -66,17 +71,25 @@
 		.live('move', function(event, origin) {
 			var cgi = $('#cgibin').attr('content'),
 				item = event.target,
-				srcPath = $(origin).closest('[data-val]').attr('data-val'),
-				dstPath = $(origin).closest('[data-dest]').attr('data-dest'),
-				src = $(item).closest('[data-val]').attr('data-val');
+				srcPath = $(item).closest('[data-load]').attr('data-load'),
+				dstPath = $(origin).closest('[data-dest]').attr('data-dest');
+			
+			dstPath += basename(srcPath);
 
-//			console.log('move: ', src, ' -> ', dstPath);
+			console.log('move: ', srcPath, ' -> ', dstPath);
 
-			if ( src && dstPath ) {
+			if ( srcPath && dstPath ) {
 				$(item).addClass('lock');
-				$.post(cgi + 'file-move.sh?' + src + ';' + dstPath, function() {
-					$(item).addClass('gone');
-//					$(".file-browser[data-val="+srcPath+"], .file-browser[data-val="+dstPath+"]").trigger('load');
+				
+				$.ajax({
+					type: 'MOVE',
+					url: srcPath,
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('Destination', dstPath);
+					},
+					success: function() {
+						$(item).addClass('gone');
+					}
 				});
 			}
 		});
