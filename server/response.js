@@ -1,5 +1,9 @@
 // Extend the ServerResponse prototype with simple response methods
 
+var fs = require('fs'),
+	mime = require('./mime'),
+	sys = require('sys');
+
 var proto = require('http').ServerResponse.prototype;
 
 proto.simpleResponse = function(code, body, contentType, encoding, headers) {
@@ -32,4 +36,19 @@ proto.simpleHtml = function (code, body, headers) {
 proto.simpleJson = function (code, json, headers) {
 	this.simpleResponse(code, JSON.stringify(json), "application/json", "utf8", headers);
 };
-    
+
+proto.readFile = function (filename, headers) {
+	var contentType = mime.lookup(filename),
+		encoding = /^text/.test(contentType) ? 'utf8' : 'binary',
+		res = this;
+	
+	fs.readFile(filename, encoding, function (err, data) {
+		if (err) {
+			sys.log(err);
+			res.notFound(err);
+		} else {
+			res.simpleResponse(200, data, contentType, encoding, headers);
+		}
+	});
+};
+

@@ -33,11 +33,14 @@ exports.requestHandler = function(req, res) {
 		}
 
 		// Check for the HTTP method as a function in the plugin
-		if ( plugin && plugin[req.method] ) {
-			req.parsedUrl = url;
-			req.splitPath = path;
-			plugin[req.method](req, res);
-			return;
+		if ( plugin ) {
+			var methodHandler = plugin[req.method] || plugin.any;
+			if ( methodHandler ) {
+				req.parsedUrl = url;
+				req.splitPath = path;
+				methodHandler(req, res);
+				return;
+			}
 		}
 	}
 	res.notFound();

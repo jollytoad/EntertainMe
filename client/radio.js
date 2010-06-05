@@ -1,6 +1,10 @@
 /*** Radio List Populator Agent - parse list of radio stations from get_iplayer and generate markup ***/
 (function($) {
 
+	$('#radio').live('load', function(event) {
+		console.log('load live radio');
+	});
+
 	$('#radio .content').live('loaded', function(event, msg) {
 		var content = this;
 

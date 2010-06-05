@@ -56,7 +56,7 @@ exports.POST = function(req, res) {
 		abspath = req.root + req.parsedUrl.pathname;
 	
 	if (query === 'play') {
-		sys.puts('play: ' + pathname);
+		sys.puts('play: ' + abspath);
 		
 		media.play(abspath, function(player) {
 			res.simpleText(200, player.playerName);
