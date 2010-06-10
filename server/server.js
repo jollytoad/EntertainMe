@@ -1,5 +1,8 @@
-var server = require('./ws').createServer(),
-	pluginRequestHandler = require('./plugin-router').requestHandler,
+require.paths.unshift(__dirname);
+
+var server = require('http').createServer(),
+	plugin = require('plugin-router'),
+	ws = require('websocket'),
 	root = require('path').dirname(__dirname);
 
 server.addListener('request', function(req, res) {
@@ -10,8 +13,11 @@ server.addListener('request', function(req, res) {
 		req.url = "/client/index.html";
     }
 
-    pluginRequestHandler.apply(this, arguments);
+    plugin.requestHandler.apply(this, arguments);
 });
 
+server.addListener('message', plugin.messageHandler);
+
+ws.listen(server);
 server.listen(8088);
 

@@ -1,26 +1,22 @@
 var sys = require('sys'),
 	parse = require('url').parse;
 
-require('./response');
+require('response');
 
-exports.pluginPath = './plugin/';
+exports.pluginPath = 'plugin/';
 
 exports.plugins = {};
 
-exports.log = function(req) {
+exports.log = function(req, msg) {
 	sys.puts(req.method + " " + req.url);
 };
 
-exports.requestHandler = function(req, res) {
-	var url = parse(req.url),
-		path = url.pathname.split('/'),
-		pluginName = path[1];
-
-	exports.log(req);
+function getHandler(pluginName, methodName, fallback) {
+	var plugin;
 
 	if ( pluginName ) {
 		// Lookup loaded plugin
-		var plugin = exports.plugins[pluginName];
+		plugin = exports.plugins[pluginName];
 		
 		if ( plugin === undefined ) {
 			try {
@@ -31,18 +27,48 @@ exports.requestHandler = function(req, res) {
 				exports.plugins[pluginName] = false;
 			}
 		}
-
+	}
+	
+sys.log("plugin: " + exports.pluginPath + pluginName + " " + (plugin ? 'found' : 'unknown'));
+	
 		// Check for the HTTP method as a function in the plugin
-		if ( plugin ) {
-			var methodHandler = plugin[req.method] || plugin.any;
-			if ( methodHandler ) {
-				req.parsedUrl = url;
-				req.splitPath = path;
-				methodHandler(req, res);
-				return;
-			}
-		}
+	if ( plugin ) {
+		return plugin[methodName] || plugin[fallback];
+	}
+}
+
+exports.requestHandler = function(req, res) {
+	req.parsedUrl = parse(req.url);
+	req.splitPath = req.parsedUrl.pathname.split('/');
+	req.pluginName = req.splitPath[1];
+
+	exports.log(req);
+
+	var handler = getHandler(req.pluginName, req.method, 'request');
+	if ( handler ) {
+		handler(req, res);
+		return;
 	}
 	res.notFound();
+};
+
+exports.messageHandler = function(msg, conn) {
+	sys.log("WS MSG: " + msg);
+	var data;
+	try {
+		data = JSON.parse(msg);
+	} catch (e) {
+		sys.log("Invalid JSON message: " + msg);
+	}
+	
+	if ( data && data.cmd ) {
+		sys.log("Cmd: " + data.cmd);
+		var splitCmd = data.cmd.split('.'),
+			handler = getHandler(splitCmd[0], splitCmd[1], 'message');
+		
+		if ( handler ) {
+			handler(data, conn);
+		}
+	}
 };
 

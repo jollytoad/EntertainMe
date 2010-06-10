@@ -1,4 +1,4 @@
-var mpc = require("../mpd-client").connect("192.168.1.102"),
+var mpc = require("mpd-client").connect("192.168.1.102"),
 	sys = require("sys");
 
 function mpdCmdHandler(sideEffect) {

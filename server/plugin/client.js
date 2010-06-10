@@ -1,6 +1,6 @@
 var fs = require('fs'),
 	path = require('path'),
-	mime = require('../mime'),
+	mime = require('mime'),
 	sys = require('sys');
 
 exports.GET = function(req, res) {

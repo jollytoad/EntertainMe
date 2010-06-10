@@ -1,4 +1,4 @@
-var media = require('../media');
+var media = require('media');
 
 exports.POST = function(req, res) {
 

@@ -91,7 +91,7 @@ jQuery(function($) {
 				.one('stopped', function() {
 					$.post(msg.action + '?play', function(data) {
 						msg.data = data;
-						$(document).trigger('playing', [ msg ]);
+//						$(document).trigger('playing', [ msg ]);
 					});
 				})
 				.trigger('stop');

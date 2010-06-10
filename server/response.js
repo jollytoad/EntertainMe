@@ -1,7 +1,7 @@
 // Extend the ServerResponse prototype with simple response methods
 
 var fs = require('fs'),
-	mime = require('./mime'),
+	mime = require('mime'),
 	sys = require('sys');
 
 var proto = require('http').ServerResponse.prototype;

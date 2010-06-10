@@ -8,7 +8,9 @@ exports.connect = function(host, port) {
 	
 	function next() {
 		if ( queue.length ) {
-			queue.shift()();
+			setTimeout(function() {
+				queue.shift()();
+			}, 1);
 		}
 	}
 	
@@ -28,6 +30,12 @@ exports.connect = function(host, port) {
 				stream = net.createConnection(port || 6600, host);
 				stream.setEncoding(encoding);
 			
+				stream.addListener("error", function(err) {
+					sys.log("mpd error: " + err);
+					callback(err);
+					next();
+				});
+				
 				stream.addListener("data", function(data) {
 					var m;
 					sys.puts("mpd recv: " + data.replace(/\n/g, "\\n"));

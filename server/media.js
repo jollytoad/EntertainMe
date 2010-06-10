@@ -1,6 +1,7 @@
 var spawn = require("child_process").spawn,
-    mime = require("./mime"),
-    extend = require("./underscore")._.extend,
+    mime = require("mime"),
+    extend = require("underscore")._.extend,
+    ws = require("websocket"),
     player;
 
 function Player(mediaId) {
@@ -22,9 +23,19 @@ Player.prototype.stop = function(callback) { callback(this); };
 
 exports.Player = Player;
 
-exports.play = function(mediaId, callback) {
+exports.play = function(mediaId, callback, endCallback) {
 	player = new Player(mediaId);
-	player.play(callback || function() {});
+	player.play(function() {
+		if ( callback ) {
+			callback.apply(this, arguments);
+		}
+		ws.broadcast({ event: "playing", args: [ { title: player.mediaId } ] });
+	}, function() {
+		if ( endCallback ) {
+			endCallback.apply(this, arguments);
+		}
+		ws.broadcast({ event: "stopped" });
+	});
 	return player;
 };
 
@@ -39,8 +50,10 @@ exports.players = {};
 exports.players.none = {};
 
 exports.spawnPlayer = {
-	play: function(callback) {
+	play: function(callback, endCallback) {
+		var player = this;
         this.childProcess = spawn(this.cmd, this.args.concat(this.mediaId), this.env);
+        this.childProcess.addListener('exit', function() { endCallback(player); });
         callback(this);
     },
     stop: function(callback) {

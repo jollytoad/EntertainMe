@@ -1,7 +1,7 @@
 var sys = require('sys'),
 	fs = require('fs'),
-	mime = require('../mime'),
-	media = require('../media');
+	mime = require('mime'),
+	media = require('media');
 
 exports.GET = function(req, res) {
 	var abspath = req.root + req.parsedUrl.pathname;

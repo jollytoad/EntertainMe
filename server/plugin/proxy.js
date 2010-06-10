@@ -2,7 +2,7 @@ var sys = require('sys'),
 	http = require('http'),
 	url = require('url');
 
-exports.any = function(req, res) {
+exports.request = function(req, res) {
 	var remoteUrl = url.parse(req.parsedUrl.query);
 	
 	sys.puts('PROXY REQUEST: ' + req.method + ' ' + remoteUrl.href);
