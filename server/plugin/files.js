@@ -3,8 +3,43 @@ var sys = require('sys'),
 	mime = require('mime'),
 	media = require('media');
 
+function Item(title, path, list) {
+	this.title = title;
+	if ( path ) {
+		this.path = path;
+	}
+	if ( list ) {
+		this.list = list;
+	}
+	this._items = {};
+	this._items.toJSON = function() {}; // Prevent _items from being serialized in JSON
+}
+
+Item.prototype.add = function(item) {
+	if ( !Array.isArray(this.list) ) {
+		this.list = [];
+	}
+	this.list.push(item);
+	this._items[item.title] = item;
+};
+
+Item.prototype.get = function(title) {
+	var item = this._items[title];
+	if ( !item ) {
+		item = new Item(title);
+		this.add(item);
+	}
+	return item;
+};
+
+function subdivide(title) {
+	var i = title.indexOf("Series");
+	return i > 0 ? [ title.slice(0,i), title.slice(i) ] : [ title ];
+}
+
 exports.GET = function(req, res) {
-	var abspath = req.root + req.parsedUrl.pathname;
+	var relpath = req.parsedUrl.pathname,
+		abspath = req.root + relpath;
 	
 	sys.puts("file listing: " + abspath);
 	
@@ -15,12 +50,12 @@ exports.GET = function(req, res) {
 			return;
 		}
 		
-		var fileMap = {},
+		var root = new Item(mime.title(relpath), relpath, []),
 			remaining = files.length,
 			i = remaining;
 		
 		function done() {
-			res.simpleJson(200, { path: req.parsedUrl.pathname, files: fileMap });
+			res.simpleJson(200, root);
 		}
 		
 		if (!i) {
@@ -29,24 +64,36 @@ exports.GET = function(req, res) {
 		}
 
 		while (i--) {
-			(function(filename, fullpath) {
-				fs.stat(fullpath, function(err, stats) {
-					var info = {};
+			(function(filename) {
+				fs.stat(abspath+"/"+filename, function(err, stats) {
+					var item = root,
+						title = mime.title(filename);
 					
-					if ( stats.isFile() ) {
-						info.file = true;
-						info.mime = mime.lookup(filename);
-					} else if ( stats.isDirectory() ) {
-						info.dir = true;
+					if ( title ) {
+						if ( stats.isDirectory() ) {
+							subdivide(title).forEach(function(subtitle) {
+								item = item.get(subtitle);
+							});
+							item.list = true;
+						}
+					
+						if ( stats.isFile() ) {
+							item = item.get(title);
+							item.mime = mime.lookup(filename);
+						}
+					
+						item.path = relpath + "/" + filename;
+
+						if ( item.title !== title ) {
+							item.fullTitle = title;
+						}
 					}
-					
-					fileMap[filename] = info;
-					
+
 					if (!(--remaining)) {
 						done();
 					}
 				});
-			})(files[i], abspath + "/" + files[i]);
+			})(files[i]);
 		}		
 	});
 };

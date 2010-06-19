@@ -7,7 +7,8 @@ var spawn = require("child_process").spawn,
 function Player(mediaId) {
 	if ( mediaId ) {
 		this.mediaId = mediaId;
-		this.contentType = mime.lookup(mediaId);
+		this.contentType = mime.type(mediaId);
+		this.title = mime.title(mediaId);
 
 		this.playerName = exports.contentTypePlayers[this.contentType]
 					   || exports.contentTypePlayers[this.contentType.split('/')[0]]
@@ -19,6 +20,14 @@ function Player(mediaId) {
 
 Player.prototype.play = function(callback) { callback(this); };
 Player.prototype.stop = function(callback) { callback(this); };
+Player.prototype.toJSON = function() {
+	return {
+		title: this.title,
+		mime: this.contentType,
+		mediaId: this.mediaId,
+		playerName: this.playerName
+	};
+};
 
 
 exports.Player = Player;
@@ -29,7 +38,8 @@ exports.play = function(mediaId, callback, endCallback) {
 		if ( callback ) {
 			callback.apply(this, arguments);
 		}
-		ws.broadcast({ event: "playing", args: [ { title: player.mediaId } ] });
+//		ws.broadcast({ event: "playing", args: [ { title: player.title } ] });
+		ws.broadcast({ event: "playing", args: [ player ] });
 	}, function() {
 		if ( endCallback ) {
 			endCallback.apply(this, arguments);

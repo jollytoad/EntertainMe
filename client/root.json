@@ -1,0 +1,32 @@
+{
+	"list": [{
+		"title": "TV Latest",
+		"path": "/files/TV",
+		"list": true
+	},{
+		"title": "Live Radio",
+		"path": "/liveradio",
+		"list": true
+	},{
+		"title": "Radio Comedy",
+		"path": "/radiocomedy",
+		"list": true
+	},{
+		"title": "Playlists",
+		"path": "/music",
+		"list": true
+	},{
+		"title": "Films",
+		"path": "/files/Films",
+		"list": true
+	},{
+		"title": "TV Archive",
+		"path": "/files/Archive",
+		"list": true
+	},{
+		"title": "External",
+		"path": "/files/Ext",
+		"list": true
+	}]
+}
+

@@ -1,12 +1,21 @@
-var mime = exports,
-    extname = require("path").extname;
+var extname = require("path").extname;
 
 // returns MIME type for extension, or fallback, or octet-steam
-mime.lookup = function(filename, fallback) {
-    return mime.EXT[extname(filename).toLowerCase()] || fallback || 'application/octet-stream';
+exports.type = function(filename, fallback) {
+    return exports.EXT[extname(filename).toLowerCase()] || fallback || 'application/octet-stream';
 };
 
-mime.EXT = {
+exports.lookup = exports.type;  // deprecated
+
+exports.title = function(path) {
+	return path.slice(path.lastIndexOf("/") + 1)	// Strip path prefix
+			.replace(/\.[^.]+$/, '') // Strip file extension
+			.replace(/_[a-z0-9]{8}_(default|signed)$/, '') // Strip iplayer info
+			.replace(/_/g, ' ') // Replace underscores
+			.replace(/[^A-Za-z0-9]*$/, ''); // Strip spurious characters from end of name
+};
+
+exports.EXT = {
       ".3gp"   : "video/3gpp"
     , ".a"     : "application/octet-stream"
     , ".ai"    : "application/postscript"
