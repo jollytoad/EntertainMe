@@ -38,13 +38,15 @@
 			console.log(event.type, item);
 
 			// create the item
-			var li = $('<li/>').appendTo(this);
+			var li = $('<li/>');
 
 			$('<a/>', { href: '#', text: item.title }).appendTo(li);
 
 			if ( item.mime ) {
 				li.attr('data-mime', item.mime);
 			}
+
+			li.insertInto(this, compareItems);
 
 			if ( item.list ) {
 				var ul = $('<ul/>', { 'data-src': item.path }).appendTo(li);
@@ -57,5 +59,41 @@
 			}
 		});
 
+	$.fn.insertInto = function(target, comparator) {
+		return this.each(function() {
+			var insert = this, found = false;
+			$(target).children().each(function() {
+				var c = comparator(insert, this);
+				if ( c < 0 ) {
+					$(insert).insertBefore(this);
+				} else if ( c === 0 ) {
+					$(insert).insertAfter(this);
+				}
+				found = c <= 0;
+				return !found;
+			});
+			if ( !found ) {
+				$(target).append(insert);
+			}
+		});
+	};
+
+	function expandNumbers(str) {
+		return str.replace(/\d+/g, function(m) {
+			return ("00000000" + parseInt(m, 10)).slice(-8);
+		});
+	}
+
+	function removeThe(str) {
+		return str.replace(/^the/i, "");
+	}
+
+	function prep(str) {
+		return removeThe(expandNumbers(str)).trim();
+	}
+
+	function compareItems(a,b) {
+		return prep($('> *:first', a).text()).localeCompare(prep($('> *:first', b).text()));
+	}
 })(jQuery);
 
