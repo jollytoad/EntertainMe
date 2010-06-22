@@ -38,9 +38,9 @@
 			console.log(event.type, item);
 
 			// create the item
-			var li = $('<li/>');
+			var li = $('<li/>', { tabindex: 0 });
 
-			$('<a/>', { href: '#', text: item.title }).appendTo(li);
+			$('<span/>', { href: '#', text: item.title }).appendTo(li);
 
 			if ( item.mime ) {
 				li.attr('data-mime', item.mime);

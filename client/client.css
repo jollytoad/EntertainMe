@@ -4,6 +4,10 @@
 	font-family: "Cantarell", sans-serif;
 }
 
+*:focus {
+	outline: none;
+}
+
 html {
 	background-color: black;
 	color: white;
@@ -33,6 +37,10 @@ html {
 	z-index: 99;
 }
 
+.main {
+	position: relative;
+}
+
 .header > * {
 	line-height: 2em;
 }
@@ -44,19 +52,16 @@ html {
 
 .test { height: 1000px; border: 1px dotted red; background-color: white; }
 
-.main {
-	position: relative;
-}
-
 ul {
 	width: 11em;
 	line-height: 1em;
 	position: absolute;
 	top: 0;
 	list-style: none;
+	-webkit-transition: all 500ms ease-in-out;
 }
 
-ul > li > a {
+ul > li > *:first-child {
 	background-color: red;
 	background-image: -webkit-gradient(linear, left top, right bottom, from(rgba(0,0,0,0.4)), to(rgba(0,0,0,0.9)));
 	-webkit-box-shadow: 0.1em 0.1em 1em rgba(128,128,128,0.5);
@@ -69,10 +74,10 @@ ul > li > a {
 	-webkit-transition: all 100ms ease-out;
 }
 
-ul > li > a:hover,
-ul > li > a:focus {
+ul > li > *:first-child:hover,
+ul > li:focus > *:first-child {
 	-webkit-transform: scale(1.1) translate(0.2em,0);
-	background-color: yellow;
+	background-color: yellow !important;
 }
 
 ul > li > ul {
@@ -80,10 +85,9 @@ ul > li > ul {
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transform: rotate(-45deg) scale(0.5) translate(-4em,0);
-	-webkit-transition: all 500ms ease-in-out;
 }
 
-ul > li.expand > a {
+ul > li.expand > *:first-child {
 	background-color: orange;
 	-webkit-transform: scale(1.2) translate(0.4em,0);
 	-webkit-transition: all 500ms ease-out;

@@ -11,10 +11,28 @@
 /* Allow filtering of keyboard events using a special namespace syntax:
  *  .bind('keydown.key:shift-home', ...);
  *  .bind('click.key:shift', ...);
+ *
+ * Requires jQuery 1.4.1+
  */
-(jQuery.keys || (function($) {
+/*global jQuery, initCodes, add */
+(function($) {
 
-var k, init;
+var k;
+
+// Construct a key combination string from an event
+function combo( event ) {
+	var mns = [], key = k.codes[event.keyCode];
+	$.each(k.modifiers, function() {
+		if ( event[this+'Key'] ) {
+			mns.push(this);
+		}
+	});
+	if ( key ) {
+		mns.push(key);
+	}
+	return mns.length ? mns.join(k.mnemonicDelim) : 'none';
+}
+
 k = $.keys = {
 	modifiers: ['alt','meta','shift'],
 	
@@ -32,22 +50,12 @@ k = $.keys = {
 		'return': 'enter'
 	},
 
-	// Construct a key combination string from an event
-	combo: function( event ) {
-		if ( !init ) {
-			initCodes();
-			init = true;
-		}
-		var mns = [], key = k.codes[event.keyCode];
-		$.each(k.modifiers, function() {
-			if ( event[this+'Key'] ) {
-				mns.push(this);
-			}
-		});
-		if ( key ) {
-			mns.push(key);
-		}
-		return mns.length ? mns.join(k.mnemonicDelim) : 'none';
+	combo: function() {
+		// Initialise codes when this function is first called
+		initCodes();
+		// Replace this function with the real combo function
+		k.combo = combo;
+		return combo.apply(this, arguments);
 	},
 	
 	normalise: function( combo ) {
@@ -77,9 +85,19 @@ k = $.keys = {
 function add(handler, data, namespaces) {
 /*DEBUG*add*
 	var $$elem = this;
+	console.log('keys add params:', this, arguments);
 *DEBUG*add*/
 
-	// Interpret namespaces in parenthesis (...) as a key combo.
+	var handlerObj;
+
+	// jQuery 1.4.2+ passes a single object param
+	if ( typeof handler === 'object' ) {
+		handlerObj = handler;
+		namespaces = handlerObj.namespace.split(".");
+		handler = handlerObj.handler;
+	}
+
+	// Interpret namespaces that match the namespaceRegex as a key combo.
 	if ( namespaces.length ) {
 		var combos = {}, proxy;
 		
@@ -107,8 +125,12 @@ function add(handler, data, namespaces) {
 					return handler.apply(this, arguments);
 				}
 			};
-			proxy.type = handler.type;
-			return proxy;
+			if ( handlerObj ) {
+				handlerObj.handler = proxy;
+			} else {
+				proxy.type = handler.type;
+				return proxy;
+			}
 		}
 	}
 }
@@ -145,6 +167,5 @@ function initCodes() {
 // Register a default set of events
 k.register('keydown', 'keyup', 'click');
 
-})(jQuery)
-);
+})(jQuery);
 
