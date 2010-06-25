@@ -70,7 +70,7 @@ exports.listen = function(server) {
 				msg += chunk.toString('utf8', offset, chunk.length);
 			});
 		
-			socket.addListener('close', function() {
+			socket.addListener('end', function() {
 				sys.log("WebSocket Closed");
 				delete clients[clientId];
 				server.emit('wsclose');
