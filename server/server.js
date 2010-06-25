@@ -10,7 +10,7 @@ server.addListener('request', function(req, res) {
 
 	// Redirect "/" internally
 	if ( req.url === "/" ) {
-		req.url = "/client/index.html";
+		req.url = "/client/client.html";
     }
 
     plugin.requestHandler.apply(this, arguments);
