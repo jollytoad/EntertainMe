@@ -1,10 +1,18 @@
-jQuery(function($) {
-
+(function($) {
 
 	$(document)
+	
+		// Expand an items sublist (if it has one) when clicked
 		.delegate('ul > li:has(> ul):not(.expand)', 'click', function(event) {
 			$(this).trigger('expand');
 		})
+
+		// Play an item that has no sublist
+		.delegate('li:not(:has(ul))', 'click', function(event) {
+			$(this).trigger('play');
+		})
+
+		// Expand the sublist
 		.delegate('li', 'expand', function(event) {
 			var load = $('> ul[data-src]:not(.loaded)', this);
 			if ( load.length ) {
@@ -19,38 +27,14 @@ jQuery(function($) {
 					.addClass('expand').trigger('expanded');
 			}
 		})
-		.delegate('li', 'click focus', function(event) {
-			$(this).trigger('align');
-		})
-		.delegate('li:not(:has(ul))', 'click', function(event) {
-			$(this).trigger('play');
-		})
-		.delegate('li', 'expanded', function(event) {
-			$('> ul > li', this).filter(':first-child,.align').last().trigger('align');
-		})
-		.delegate('li', 'align', function(event) {
-			// Move the list so this item is vertically aligned with its parent item
-			var parentItemOffset = $(this).parents('li:first').offset();
-			if ( parentItemOffset ) {
-				$(this).offsetParent().offset({top: parentItemOffset.top - $(this).position().top });
-			} else {
-				console.log('no parent');
-				var top = $('.header').outerHeight(true),
-					bottom = $('.footer').offset().top,
-					ul = $(this).offsetParent(),
-					per = $(this).nextAll().length / $(ul).children().length;
-					
-				ul.offset({top: top + ((bottom - top) - ul.outerHeight(true)) * per});
-			}
-			$(this).siblings('li.align').removeClass('align').end()
-				.addClass('align').trigger('aligned');
-		})
+
+		// Shift focus using cursor keys
 		.delegate('li', 'keydown', function(event) {
 			var kc = $.keys.combo(event);
 			
 			switch(kc) {
 				case 'enter':
-					$(this).trigger('expand');
+					$(this).trigger('click');
 					return false;
 				
 				case 'down':
@@ -73,12 +57,7 @@ jQuery(function($) {
 					$(this).parents('li:first').focus();
 					return false;
 			}
-		});
-	
-	$('#root')
-		.one('updated', function() {
-			$('> li:first-child', this).focus();
 		})
-		.trigger('loaddata');
-});
+	;
+})(jQuery);
 

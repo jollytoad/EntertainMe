@@ -1,4 +1,7 @@
-/*** Media Playing Agent ***/
+/*global jQuery, document */
+
+/* Media Playing Agent
+ */
 (function($) {
 
 	$(document)
