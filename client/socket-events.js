@@ -3,7 +3,7 @@
 	function open() {
 		console.log("Opening Web Socket");
 
-		var ws = new WebSocket("ws://mark-eeepc.local:8088/");
+		var ws = new WebSocket("ws://" + location.host + "/");
 
 		ws.addEventListener('open', function() {
 			console.log("WebSocket open.");
@@ -20,7 +20,7 @@
 
 		ws.addEventListener('close', function() {
 			console.log("WebSocket closed.");
-			window.setTimeout(open, 333);
+			window.setTimeout(open, 5000);
 		});
 	}
 

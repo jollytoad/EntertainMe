@@ -14,9 +14,10 @@ jQuery(function($) {
 				if ( m && m[1] && !found[m[1]] ) {
 					found[m[1]] = true;
 					stations.push({
-						id: m[1],
-						name: $(this).text(),
-						thumb: 'http://www.bbc.co.uk/iplayer/r22008/img/station_logos/' + m[1] + '.png'
+						title: $(this).text(),
+						path: m[1],
+						mime: "audio/x-bbc-iplayer",
+						icon: 'http://www.bbc.co.uk/iplayer/r22008/img/station_logos/' + m[1] + '.png'
 					});
 				}
 			});
@@ -26,7 +27,7 @@ jQuery(function($) {
 		$.ajax({
 			type: "PUT",
 			url: "/liveradio/stations",
-			data: JSON.stringify(stations),
+			data: JSON.stringify({list:stations}),
 			contentType: "application/json"
 		});
 	});

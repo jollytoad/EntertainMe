@@ -19,5 +19,5 @@ server.addListener('request', function(req, res) {
 server.addListener('message', plugin.messageHandler);
 
 ws.listen(server);
-server.listen(8088);
+server.listen(8099);
 

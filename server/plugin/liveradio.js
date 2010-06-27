@@ -7,7 +7,7 @@ exports.PUT = function(req, res) {
 	if ( req.splitPath[2] === "stations" ) {
 		sys.puts('Write stations');
 		
-		var file = fs.createWriteStream(req.root + '/cache/liveradio-stations.json');
+		var file = fs.createWriteStream(req.root + '/cache/liveradio-bbc.json');
 
 		req.addListener('data', function(chunk) {
 			file.write(chunk);
@@ -23,7 +23,7 @@ exports.PUT = function(req, res) {
 
 exports.GET = function(req, res) {
 	if ( /^stations(.json)?$/.test(req.splitPath[2]) ) {
-		res.readFile(req.root + '/cache/liveradio-stations.json');
+		res.readFile(req.root + '/cache/liveradio-bbc.json');
 	}
 };
 

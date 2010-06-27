@@ -5,8 +5,9 @@
 		"list": true
 	},{
 		"title": "Live Radio",
-		"path": "/liveradio",
-		"list": true
+		"path": "/liveradio/stations",
+		"list": true,
+		"order": "append"
 	},{
 		"title": "Radio Comedy",
 		"path": "/radiocomedy",

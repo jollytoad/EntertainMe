@@ -43,6 +43,11 @@
 			console.log(event.type, this, item);
 
 			var self = $(this);
+			
+			if ( item && item.order ) {
+				$(this).attr('data-order', item.order);
+				// Should reorder the list if this changes
+			}
 
 			if ( item && $.isArray(item.list) ) {
 				self.trigger('addlist', [ item.list ]);
@@ -63,7 +68,7 @@
 			// create the item
 			var li = $('<li/>', { tabindex: 0 });
 
-			$('<span/>', { href: '#', text: item.title }).appendTo(li);
+			$('<span/>', { text: item.title }).appendTo(li);
 
 			if ( item.mime ) {
 				li.attr('data-mime', item.mime);
