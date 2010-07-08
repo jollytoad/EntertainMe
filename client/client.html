@@ -24,22 +24,24 @@
 	<script src="ready.js"></script>
 </head>
 <body>
-	<div class="embedded-player hidden"></div>
+	<aside class="embedded-player hidden"></aside>
 
-	<div class="header section">
+	<header id="header" class="section banner">
 		<label>Now playing:</label>
 		<span class="playing title"></span>
 		<button type="button" id="stop" data-key="0">Stop</button>
-	</div>
+	</header>
 	
-	<div class="main section">
-		<ul id="root" data-src="/client/root.json" data-order="append"></ul>
-	</div>
+	<ul id="main" class="section">
+		<li id="root">
+			<ul data-src="/client/root.json" data-order="append"></ul>
+		</li>
+	</ul>
 	
-	<div class="footer section">
+	<footer id="footer" class="section banner">
 		<button type="button" data-key="f5" class="info">Refresh All</button>
 		<button type="button" data-key="enter" class="info">Play/Expand</button>
-	</div>
+	</footer>
 </body>
 </html>
 

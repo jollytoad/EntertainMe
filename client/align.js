@@ -25,14 +25,6 @@
 			
 			if ( parentItemOffset ) {
 				$(this).offsetParent().offset({top: parentItemOffset.top - $(this).position().top });
-			} else {
-				// Move the root list proportionally according to the active item
-				var top = $('.header').outerHeight(true),
-					bottom = $('.footer').offset().top,
-					ul = $(this).offsetParent(),
-					per = $(this).nextAll().length / $(ul).children().length;
-					
-				ul.offset({top: top + ((bottom - top) - ul.outerHeight(true)) * per});
 			}
 			
 			$(this).siblings('li.align').removeClass('align').end()

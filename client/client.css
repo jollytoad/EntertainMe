@@ -18,34 +18,36 @@ body {
 	overflow: hidden;
 }
 
-.header {
+.section {
 	position: fixed;
-	height: 2em;
-	top: 0;
 	left: 0;
 	right: 0;
+}
+
+.banner {
+	height: 2em;
 	line-height: 2em;
+}
+
+#header {
+	top: 0;
 	background: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), color-stop(80%, rgba(0,0,0,0.7)), to(rgba(0,0,0,0)));
 	font-weight: bold;
 	z-index: 100;
 }
 
-.footer {
-	position: fixed;
-	height: 2em;
+#footer {
 	bottom: 0;
-	left: 0;
-	right: 0;
-	line-height: 2em;
 	background: -webkit-gradient(linear, left bottom, left top, from(rgba(0,0,0,1)), color-stop(80%, rgba(0,0,0,0.7)), to(rgba(0,0,0,0)));
 	z-index: 99;
 }
 
-.main {
-	position: relative;
+#main {
+	top: 0;
+	bottom: 0;
 }
 
-.header > * {
+#header > * {
 	line-height: 2em;
 }
 
@@ -54,9 +56,13 @@ body {
 	right: 0;
 }
 
-.test { height: 1000px; border: 1px dotted red; background-color: white; }
+#root {
+	position: absolute;
+	left: 0;
+	top: 40%;
+}
 
-ul {
+#root ul {
 	width: 11em;
 	line-height: 1em;
 	position: absolute;
@@ -66,7 +72,7 @@ ul {
 	z-index: 10;
 }
 
-ul > li > *:first-child {
+#root ul > li > *:first-child {
 	background-color: red;
 	background-image: -webkit-gradient(linear, left top, right bottom, from(rgba(0,0,0,0.4)), to(rgba(0,0,0,0.9)));
 	-webkit-box-shadow: 0.1em 0.1em 1em rgba(128,128,128,0.5);
@@ -79,26 +85,26 @@ ul > li > *:first-child {
 	-webkit-transition: all 100ms ease-out;
 }
 
-ul > li > *:first-child:hover,
-ul > li:focus > *:first-child {
+#root ul > li > *:first-child:hover,
+#root ul > li:focus > *:first-child {
 	-webkit-transform: scale(1.1) translate(0.2em,0);
 	background-color: yellow !important;
 }
 
-ul > li > ul {
+#root ul > li > ul {
 	margin-left: 12em;
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transform: rotate(-45deg) scale(0.5) translate(-4em,0);
 }
 
-ul > li.expand > *:first-child {
+#root ul > li.expand > *:first-child {
 	background-color: orange;
 	-webkit-transform: scale(1.2) translate(0.4em,0);
 	-webkit-transition: all 500ms ease-out;
 }
 
-ul > li.expand > ul {
+#root ul > li.expand > ul {
 	visibility: visible;
 	opacity: 1;
 	-webkit-transform: scale(1) translate(0,0);
