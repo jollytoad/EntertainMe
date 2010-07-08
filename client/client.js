@@ -58,6 +58,12 @@
 					return false;
 			}
 		})
+		
+		// Trigger an event on click
+		.delegate('[data-trigger]', 'click', function(event) {
+			$(event.target).trigger(this.getAttribute('data-trigger'));
+			event.preventDefault();
+		})
 	;
 })(jQuery);
 
