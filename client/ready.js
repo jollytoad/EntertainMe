@@ -4,6 +4,8 @@
  */
 jQuery(function($) {
 
+	$('body').css('font-size', Math.round(screen.width/50)+'px');
+
 	// Load the root menu
 	$('#root')
 		.one('updated', function() {
