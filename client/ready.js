@@ -4,7 +4,7 @@
  */
 jQuery(function($) {
 
-	$('body').css('font-size', Math.round(screen.width/50)+'px');
+	$('body').css('font-size', Math.round(screen.height/40)+'px');
 
 	// Load the root menu
 	$('#root')
